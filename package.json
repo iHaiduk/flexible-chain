@@ -9,7 +9,8 @@
     "lint:fix": "yarn run lint --fix",
     "format": "prettier --write \"./src/**/*.{ts,tsx,js}\"",
     "test": "jest",
-    "test:coverage": "yarn jest --coverage"
+    "test:coverage": "yarn jest --coverage",
+    "coveralls": "yarn test:coverage && cat ./coverage/lcov.info | coveralls"
   },
   "keywords": [
     "object field tree",
@@ -55,5 +56,8 @@
   "prepare": "npm run build",
   "preversion": "npm run lint",
   "version": "0.0.1",
-  "postversion": "git push && git push --tags"
+  "postversion": "git push && git push --tags",
+  "dependencies": {
+    "coveralls": "^3.1.0"
+  }
 }
