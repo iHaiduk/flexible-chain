@@ -51,9 +51,9 @@
   "publishConfig": {
     "access": "public"
   },
-  "prepublishOnly" : "npm test && npm run lint",
-  "prepare" : "npm run build",
-  "preversion" : "npm run lint",
-  "version" : "0.0.0",
-  "postversion" : "git push && git push --tags"
+  "prepublishOnly": "npm test && npm run lint",
+  "prepare": "npm run build",
+  "preversion": "npm run lint",
+  "version": "0.0.1",
+  "postversion": "git push && git push --tags"
 }
