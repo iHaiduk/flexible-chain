@@ -1,0 +1,15 @@
+language: node_js
+
+node_js:
+  - "14.2.0"
+  - "12.16.3"
+
+cache:
+  yarn: true
+  directories:
+    - node_modules
+
+install:
+  - yarn install --peer
+script:
+  - npm run lint && npm test

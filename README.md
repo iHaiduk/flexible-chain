@@ -1,3 +1,3 @@
 # Tree Combiner
 
-[![GitHub version](https://badge.fury.io/gh/iHaiduk%2Ftree-combiner.svg)](https://badge.fury.io/gh/iHaiduk%2Ftree-combiner)
+[![npm version](https://badge.fury.io/js/tree-combiner.svg)](https://badge.fury.io/js/tree-combiner)
