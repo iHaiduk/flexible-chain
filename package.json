@@ -1,0 +1,59 @@
+{
+  "name": "tree-combiner",
+  "description": "This library will help you quickly and clearly build your code by building a chain of trees.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -b",
+    "lint": "tslint --format stylish --project tsconfig.json",
+    "lint:fix": "yarn run lint --fix",
+    "format": "prettier --write \"./src/**/*.{ts,tsx,js}\"",
+    "test": "jest",
+    "test:coverage": "yarn jest --coverage"
+  },
+  "keywords": [
+    "object field tree",
+    "js tree",
+    "typescript tree"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iHaiduk/tree-combiner.git"
+  },
+  "author": "Ihor Haiduk",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/iHaiduk/tree-combiner/issues"
+  },
+  "homepage": "https://github.com/iHaiduk/tree-combiner#readme",
+  "devDependencies": {
+    "@babel/preset-env": "^7.9.6",
+    "@babel/preset-typescript": "^7.9.0",
+    "@types/jest": "^25.2.1",
+    "@types/react": "^16.9.34",
+    "jest": "^26.0.1",
+    "prettier": "^2.0.5",
+    "ts-jest": "^25.4.0",
+    "tslint": "^6.1.2",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-config-standard": "^9.0.0",
+    "tslint-eslint-rules": "^5.4.0",
+    "tslint-etc": "^1.10.1",
+    "tslint-import-group-ordering": "^2.1.2",
+    "tslint-microsoft-contrib": "^6.2.0",
+    "tslint-origin-ordered-imports-rule": "^1.2.2",
+    "tslint-sonarts": "^1.9.0",
+    "typescript": "^3.8.3"
+  },
+  "peerDependencies": {
+    "react": "^16.13.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "prepublishOnly" : "npm test && npm run lint",
+  "prepare" : "npm run build",
+  "preversion" : "npm run lint",
+  "version" : "npm run format && git add -A src",
+  "postversion" : "git push && git push --tags"
+}
