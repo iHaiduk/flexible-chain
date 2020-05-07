@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { ComponentType, FC } from 'react';
 
-// @ts-ignore
-export const combineComponent = (Component, nameKey = 'combine') => combineData => props => {
+export const combineComponent = <Props extends object, Data extends object>(
+    Component: ComponentType<Props>,
+    nameKey = 'combine'
+) => (combineData: Data): FC<Props> => props => {
     const combine = {
         [nameKey]: combineData,
     };

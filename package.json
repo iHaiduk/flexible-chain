@@ -1,5 +1,5 @@
 {
-  "name": "tree-combiner",
+  "name": "flexible-chain",
   "description": "This library will help you quickly and clearly build your code by building a chain of trees.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -8,33 +8,48 @@
     "lint": "tslint --format stylish --project tsconfig.json",
     "lint:fix": "yarn run lint --fix",
     "format": "prettier --write \"./src/**/*.{ts,tsx,js}\"",
-    "test": "jest",
+    "test": "jest --config=jestconfig.json",
+    "test:watch": "jest --config=jestconfig.json --watch",
     "test:coverage": "yarn jest --coverage",
     "coveralls": "yarn test:coverage && cat ./coverage/lcov.info | coveralls"
   },
   "keywords": [
+    "flex",
+    "chain",
+    "flex chain",
     "object field tree",
     "js tree",
-    "typescript tree"
+    "typescript chain",
+    "typescript tree",
+    "react",
+    "react-native",
+    "react-native-web",
+    "react tree"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/iHaiduk/tree-combiner.git"
+    "url": "git+https://github.com/iHaiduk/flexible-chain.git"
   },
   "author": "Ihor Haiduk",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/iHaiduk/tree-combiner/issues"
+    "url": "https://github.com/iHaiduk/flexible-chain/issues"
   },
-  "homepage": "https://github.com/iHaiduk/tree-combiner#readme",
+  "homepage": "https://github.com/iHaiduk/flexible-chain#readme",
   "devDependencies": {
     "@babel/preset-env": "^7.9.6",
+    "@babel/preset-react": "^7.9.4",
     "@babel/preset-typescript": "^7.9.0",
     "@types/jest": "^25.2.1",
     "@types/react": "^16.9.34",
+    "@types/react-test-renderer": "^16.9.2",
+    "coveralls": "^3.1.0",
     "jest": "^26.0.1",
     "prettier": "^2.0.5",
-    "ts-jest": "^25.4.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-test-renderer": "^16.13.1",
+    "ts-jest": "^25.5.0",
     "tslint": "^6.1.2",
     "tslint-config-prettier": "^1.18.0",
     "tslint-config-standard": "^9.0.0",
@@ -46,9 +61,6 @@
     "tslint-sonarts": "^1.9.0",
     "typescript": "^3.8.3"
   },
-  "peerDependencies": {
-    "react": "^16.13.1"
-  },
   "publishConfig": {
     "access": "public"
   },
@@ -56,8 +68,5 @@
   "prepare": "npm run build",
   "preversion": "npm run lint",
   "version": "0.0.1",
-  "postversion": "git push && git push --tags",
-  "dependencies": {
-    "coveralls": "^3.1.0"
-  }
+  "postversion": "git push && git push --tags"
 }

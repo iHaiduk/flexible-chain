@@ -1,4 +1,4 @@
-import { memoizedResult } from '../memoize-result';
+import { memoizedResult } from '../utils/memoize-result';
 
 test('Memoization Test', () => {
     const memory = new Map();

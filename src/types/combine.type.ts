@@ -1,4 +1,4 @@
-import {Call, keyTypes} from './helper.type';
+import { Call, keyTypes } from './helper.type';
 
 type CombineResult<F, R extends Call<keyof F>> = {
     [key in keyof F]: ReturnType<R[key]>;
