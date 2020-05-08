@@ -1,4 +1,4 @@
-# Flexible chain [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/facebook/react/blob/master/LICENSE) [![npm version](https://badgen.net/npm/v/flexible-chain)](https://www.npmjs.com/package/flexible-chain) [![Build Status](https://travis-ci.org/iHaiduk/flexible-chain.svg?branch=master)](https://travis-ci.org/iHaiduk/flexible-chain) [![Coverage Status](https://coveralls.io/repos/github/iHaiduk/flexible-chain/badge.svg?branch=master)](https://coveralls.io/github/iHaiduk/flexible-chain?branch=master) [![Size](https://badgen.net/bundlephobia/minzip/flexible-chain)](https://bundlephobia.com/result?p=flexible-chain) [![devDependencies Status](https://david-dm.org/iHaiduk/flexible-chain/dev-status.svg)](https://david-dm.org/iHaiduk/flexible-chain?type=dev)
+# Flexible chain [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/facebook/react/blob/master/LICENSE) [![npm version](https://badgen.net/npm/v/flexible-chain)](https://www.npmjs.com/package/flexible-chain) [![Build Status](https://badgen.net/travis/iHaiduk/flexible-chain/0.0.2)](https://travis-ci.org/iHaiduk/flexible-chain) [![Coverage Status](https://coveralls.io/repos/github/iHaiduk/flexible-chain/badge.svg?branch=master)](https://coveralls.io/github/iHaiduk/flexible-chain?branch=master) [![Size](https://badgen.net/bundlephobia/minzip/flexible-chain)](https://bundlephobia.com/result?p=flexible-chain) [![devDependencies Status](https://david-dm.org/iHaiduk/flexible-chain/dev-status.svg)](https://david-dm.org/iHaiduk/flexible-chain?type=dev)
 
 ## Install
 
@@ -22,8 +22,8 @@ Tree Combiner is a small but powerful utility for creating tree chains and obtai
 
 ### Simple
 Simple use for creating various chains
-```typescript
-import { combine, ValueOf } from "flexible-chain";
+```javascript
+import { combine } from "flexible-chain";
 
 const colorProps = {
     Red: {
@@ -39,14 +39,12 @@ const sizeProps = {
     /* ... */
 };
 
-export const initialFontTree = { ...colorProps, ...sizeProps };
-
-type ResultType = ValueOf<typeof colorProps> & ValueOf<typeof sizeProps>;
+const initialFontTree = { ...colorProps, ...sizeProps };
 
 export const fontResult = {
-    View: (style: ResultType): ResultType => style,
-    Color: (style: ResultType): string => style.color,
-    Size: (style: ResultType): number => style.fontSize,
+    View: style => style,
+    Color: style => style.color,
+    Size: style => style.fontSize,
 };
 
 const Font = combine(initialFontTree, fontResult);
@@ -60,34 +58,31 @@ console.log(Font.Red.L.Size); // 16
 
 ### Custom
 More flexible and specific use of combine for your tasks. For example, when you want the state to be not an object (by default), but a different data type.
-```typescript
-import { combine, ValueOf } from "flexible-chain";
+```javascript
+import { combine } from "flexible-chain";
 
-export const mainLanguageKey = {
+const mainLanguageKey = {
     Hello: 'Hello',
     Welcome: 'Welcome',
 };
 
-export const secondaryLanguageKey = {
+const secondaryLanguageKey = {
     Dear: 'dear',
     To: 'to',
 };
 
-export const initialLanguageTree = { ...mainLanguageKey, ...secondaryLanguageKey };
+const initialLanguageTree = { ...mainLanguageKey, ...secondaryLanguageKey };
 
-type Keys = ValueOf<typeof mainLanguageKey> & ValueOf<typeof secondaryLanguageKey>;
-type ResultLanguageType = Array<Keys>;
-
-export const customResultTree = {
-    Key: (keys: ResultLanguageType) => keys.join('.'),
-    Keys: (keys: ResultLanguageType) => keys,
-    Name: (keys: ResultLanguageType) => (name: string) => `${[...keys, name].join(' ')}!`,
-    Length: (keys: ResultLanguageType) => keys.length,
+const customResultTree = {
+    Key: keys => keys.join('.'),
+    Keys: keys => keys,
+    Name: keys => name => `${[...keys, name].join(' ')}!`,
+    Length: keys => keys.length,
 };
 
-export const customConcatenationFn = (prev: ResultLanguageType, key: Keys) => [...prev, key];
+const customConcatenationFn = (prev, key) => [...prev, key];
 
-export const customInitialState = [];
+const customInitialState = [];
 
 const Salutation = combine(initialLanguageTree, customResultTree, customConcatenationFn, customInitialState);
 
@@ -105,12 +100,12 @@ console.log(Salutation.Welcome.To.Name('flexible-chain')); // 'Welcome to flexib
 ### React & React-Native
 You can also make beautiful chains for react components.
 
-### React web style
-```typescript jsx
+### React style
+```javascript
 import { combine, combineComponent } from "flexible-chain";
 
-const SpanComponent = (props: any) => <span {...props} />;
-const ParagraphComponent = (props: any) => <p {...props} />;
+const SpanComponent = props => <span {...props} />;
+const ParagraphComponent = props => <p {...props} />;
 
 const componentColors = {
     White: {
@@ -141,11 +136,9 @@ const componentFontWeight = {
 
 const componentStyles = { ...componentColors, ...componentFontStyle, ...componentFontWeight };
 
-type ComponentProps = {};
-
 const componentResult = {
-    Text: combineComponent<ComponentProps, typeof componentStyles>(SpanComponent, 'style'),
-    Paragraph: combineComponent<ComponentProps, typeof componentStyles>(ParagraphComponent, 'style'),
+    Text: combineComponent(SpanComponent, 'style'),
+    Paragraph: combineComponent(ParagraphComponent, 'style'),
 };
 
 const UserInfo = combine(componentStyles, componentResult);
@@ -177,7 +170,7 @@ console.log(UserProfile); // ->
 
 ```
 
-### React web classes
+### React classes
 ```typescript jsx
 import { combine, combineComponent } from "flexible-chain";
 import cs from 'classnames';
@@ -186,7 +179,7 @@ import styles from './style.module.css';
 
 /* ... */
 
-const SpanComponent = ({classes, ...props}: any) => {
+const SpanComponent = ({classes, ...props}) => {
    return <span className={cs(classes)} {...props} />;
 }
 
