@@ -12,6 +12,10 @@ Or
 npm install flexible-chain
 ```
 
+---
+[Demo with React](https://codesandbox.io/s/flexible-chain-xkzbn)
+---
+
 ## Motivation
 We have a lot of repetitive code and the chore of writing different combinations. Also, over time, we forget what a piece of code should do and spend more time understanding it. This utility helps to make your code more flexible, understandable and transparent.
 

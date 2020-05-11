@@ -1,8 +1,7 @@
 const React = require('react');
 import * as renderer from 'react-test-renderer';
 
-import { combine } from '../lib/combine';
-import { combineComponent } from '../lib/combine-component';
+import { combine, combineComponent } from '..';
 import {
     componentStyles,
     SpanComponent,
@@ -69,6 +68,7 @@ describe('Combine React Render', () => {
 
         const componentBoldItalicRedText = renderer.create(<UserName.Bold.Red.Text />);
         const componentBoldItalicRedParagraph = renderer.create(<UserName.Bold.Oblique.White.Paragraph />);
+        const componentBoldItalicRedOText = renderer.create(<UserName.Bold.Oblique.White.Text />);
 
         expect(componentBoldItalicRedText.toJSON()).toEqual(
             compareComponentProps(initialSpanComponentJSON, {
@@ -79,6 +79,14 @@ describe('Combine React Render', () => {
 
         expect(componentBoldItalicRedParagraph.toJSON()).toEqual(
             compareComponentProps(initialParagraphComponent.toJSON(), {
+                ...componentFontWeight.Bold,
+                ...componentFontStyle.Oblique,
+                ...componentColors.White,
+            })
+        );
+
+        expect(componentBoldItalicRedOText.toJSON()).toEqual(
+            compareComponentProps(initialSpanComponentJSON, {
                 ...componentFontWeight.Bold,
                 ...componentFontStyle.Oblique,
                 ...componentColors.White,

@@ -1,4 +1,4 @@
-import { ValueOf } from '../types/helper.type';
+import { ValueOf } from '..';
 
 export const mainLanguageKey = {
     Hello: 'Hello',
@@ -15,11 +15,14 @@ export const initialLanguageTree = { ...mainLanguageKey, ...secondaryLanguageKey
 type Keys = ValueOf<typeof mainLanguageKey> & ValueOf<typeof secondaryLanguageKey>;
 type ResultLanguageType = Array<Keys>;
 
+export const mockLengthJest = jest.fn();
+
 export const customResultTree = {
     Key: (keys: ResultLanguageType) => keys.join('.'),
     Keys: (keys: ResultLanguageType) => keys,
     User: (keys: ResultLanguageType) => (name: string) => `${[...keys, name].join(' ')}!`,
     Length: (keys: ResultLanguageType) => keys.length,
+    LengthJest: mockLengthJest.mockReturnValue(1),
 };
 
 export const customConcatenationFn = (prev: ResultLanguageType, key: Keys) => [...prev, key];

@@ -1,4 +1,4 @@
-export const memoizedResult = <T = any>(memory: Map<string, any>, key: string, fn: () => T) => {
+export const memoizedResult = <T = any, K = string>(memory: Map<K, T>, key: K, fn: () => T) => {
     if (memory.has(key)) {
         return memory.get(key);
     }

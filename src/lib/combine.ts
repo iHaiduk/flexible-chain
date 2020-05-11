@@ -19,8 +19,6 @@ export const combine = <T extends object, F extends Call, R extends Call<keyof F
             [privateProperty]: initialProps,
         } as CombineType<T, F, R>;
 
-        const propsMemoKeys = Object.values(calls[privateProperty]).join('.');
-
         for (const [key, props] of Object.entries(types)) {
             Object.defineProperty(calls, key, {
                 get() {
@@ -35,8 +33,8 @@ export const combine = <T extends object, F extends Call, R extends Call<keyof F
 
         for (const [key, fn] of Object.entries(fnResults)) {
             Object.defineProperty(calls, key, {
-                get(): string {
-                    return memoizedResult(memo, `${propsMemoKeys}.${key}`, () => fn.call(fn, this[privateProperty]));
+                get(): R {
+                    return memoizedResult(memo, prevKey + key, () => fn.call(fn, this[privateProperty]));
                 },
             });
         }
