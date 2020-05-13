@@ -1,20 +1,19 @@
 import { privateProperty } from '../constants/private-property';
-import { CombineType } from '../types/combine.type';
-import { Call } from '../types/helper.type';
+import { concatenationFunction } from '../utils/concatenation-function';
 import { memoizedResult } from '../utils/memoize-result';
 
-export const combine = <T extends object, F extends Call, R extends Call<keyof F> = F>(
+import { CombineInitialProps, CombineType } from '../types/combine.type';
+import { Call } from '../types/helper.type';
+
+export const combine = <T extends object, F extends Call, R extends Call<keyof F> = F, I = CombineInitialProps>(
     types: T,
     fnResults: F,
-    fnConcat = (prev: any, current: any) => ({ ...prev, ...current }),
-    initial = {}
+    fnConcat = concatenationFunction,
+    initial: I = {} as I
 ): CombineType<T, F, R> => {
     const memo = new Map();
 
-    const combineGenerate = (
-        initialProps: object | Array<string | number | object>,
-        prevKey = ''
-    ): CombineType<T, F, R> => {
+    const combineGenerate = (initialProps: I, prevKey = ''): CombineType<T, F, R> => {
         const calls = {
             [privateProperty]: initialProps,
         } as CombineType<T, F, R>;
@@ -34,7 +33,7 @@ export const combine = <T extends object, F extends Call, R extends Call<keyof F
         for (const [key, fn] of Object.entries(fnResults)) {
             Object.defineProperty(calls, key, {
                 get(): R {
-                    return memoizedResult(memo, prevKey + key, () => fn.call(fn, this[privateProperty]));
+                    return memoizedResult<R>(memo, prevKey + key, () => fn.call(fn, this[privateProperty]));
                 },
             });
         }

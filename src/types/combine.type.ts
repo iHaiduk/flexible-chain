@@ -10,3 +10,5 @@ export type CombineType<T extends object, F extends Call, R extends Call<keyof F
 export type CombineTypeGen<T extends object, F extends Call, R extends Call<keyof F>> = {
     [key in keyTypes<T>]: CombineType<T, F, R>;
 };
+
+export type CombineInitialProps = string | number | object | CombineInitialProps[];
