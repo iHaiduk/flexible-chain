@@ -5,7 +5,6 @@ import {
     customResultTree,
     initialLanguageTree,
     mainLanguageKey,
-    mockLengthJest,
     secondaryLanguageKey,
 } from '../__mocks__/custom-combine.mock';
 import { colorProps, initialTree, resultTree, sizeProps } from '../__mocks__/simple-combine.mock';
@@ -20,6 +19,8 @@ describe('Combine Test', () => {
 
         expect(Font.Red.Color).toBe(colorProps.Red.color);
         expect(Font.L.Size).toBe(sizeProps.L.fontSize);
+
+        expect(Font.Weight(12).WeightResult).toBe(12);
 
         expect(Font.L.Color).toBeUndefined();
         expect(Font.Red.Size).toBeUndefined();
@@ -38,17 +39,5 @@ describe('Combine Test', () => {
 
         expect(Salutation.Hello.User('Kris')).toBe('Hello Kris!');
         expect(Salutation.Hello.Dear.User('Kris')).toBe('Hello dear Kris!');
-    });
-
-    it('Check memoization combine', () => {
-        const Salutation = combine(initialLanguageTree, customResultTree, customConcatenationFn, customInitialState);
-
-        for (let i = 0; i < 5; i++) {
-            expect(Salutation.Hello.Dear.LengthJest).toBe(1);
-            expect(Salutation.Hello.Dear.Welcome.LengthJest).toBe(1);
-            expect(Salutation.Hello.Dear.Welcome.To.LengthJest).toBe(1);
-        }
-
-        expect(mockLengthJest).toBeCalledTimes(3);
     });
 });

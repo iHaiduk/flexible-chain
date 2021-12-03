@@ -1,4 +1,4 @@
-import { ValueOf } from '..';
+import { SimpleValueOf } from '../types/helper.type';
 
 export const mainLanguageKey = {
     Hello: 'Hello',
@@ -12,8 +12,8 @@ export const secondaryLanguageKey = {
 
 export const initialLanguageTree = { ...mainLanguageKey, ...secondaryLanguageKey };
 
-type Keys = ValueOf<typeof mainLanguageKey> & ValueOf<typeof secondaryLanguageKey>;
-type ResultLanguageType = Array<Keys>;
+type Keys = SimpleValueOf<typeof mainLanguageKey> & SimpleValueOf<typeof secondaryLanguageKey>;
+type ResultLanguageType = Keys[];
 
 export const mockLengthJest = jest.fn();
 
